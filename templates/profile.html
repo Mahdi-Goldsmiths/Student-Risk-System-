@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile – {{ student.student_id }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <div>
+        <div class="navbar-brand">Student Dropout Risk Prediction System</div>
+        <div class="navbar-sub">Academic Tutor Decision Support Tool</div>
+    </div>
+    <div class="navbar-right">For authorised staff use only</div>
+</div>
+
+<div class="page">
+
+    <a href="/" class="back-link">← Back to Risk Overview</a>
+
+    <div class="profile-header">
+        <h1>Student Profile: {{ student.student_id }}</h1>
+        <p>Year {{ student.year_of_study }} — {{ student.language_status | capitalize }} speaker — {{ student.financial_support | capitalize }} funded</p>
+    </div>
+
+    <div class="profile-grid">
+
+        <div class="card">
+            <h2>Risk Assessment</h2>
+            <p>Predicted Risk Level</p>
+            <span class="badge {{ student.predicted_risk | lower }} large">{{ student.predicted_risk }}</span>
+        </div>
+
+        <div class="card">
+            <h2>Contextual Information</h2>
+            <p><strong>Language Status:</strong> {{ student.language_status | capitalize }}</p>
+            <p><strong>Financial Support:</strong> {{ student.financial_support | capitalize }}</p>
+            <p><strong>Year of Study:</strong> {{ student.year_of_study }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Engagement Metrics</h2>
+            <p><strong>Engagement Trend Score:</strong> {{ student.engagement_trend_score }}</p>
+            <p><strong>Attendance Rate:</strong> {{ student.attendance_rate }}</p>
+            <p><strong>VLE Activity Score:</strong> {{ student.vle_activity_score }}</p>
+            <p><strong>Avg Assessment Score:</strong> {{ student.avg_assessment_score }}</p>
+        </div>
+
+        <div class="card">
+            <h2>Behavioural Signals</h2>
+            <p><strong>Inactivity Streak:</strong> {{ student.inactivity_streak }} days</p>
+            <p><strong>Missed Submissions:</strong> {{ student.missed_submissions }}</p>
+            <p><strong>Submission Timeliness Score:</strong> {{ student.submission_timeliness_score }}</p>
+        </div>
+
+        <div class="card full-width">
+            <h2>Risk Explanation</h2>
+            <div class="flag-box {{ 'high-flag' if student.predicted_risk == 'High' }}">
+                {{ student.explanation }}
+            </div>
+        </div>
+
+        <div class="card full-width">
+            <h2>Suggested Actions</h2>
+            <ul>
+                {% if student.predicted_risk == "High" %}
+                <li>Schedule an urgent one-to-one meeting with the student</li>
+                <li>Review attendance and submission records in detail</li>
+                <li>Refer to student support services if appropriate</li>
+                {% elif student.predicted_risk == "Medium" %}
+                <li>Send a check-in email to the student</li>
+                <li>Monitor engagement over the next two weeks</li>
+                <li>Consider offering additional academic support</li>
+                {% else %}
+                <li>No immediate action required</li>
+                <li>Continue monitoring through normal review cycles</li>
+                {% endif %}
+            </ul>
+            <p class="ethics-note">These suggestions are advisory only.</p>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
