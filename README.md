@@ -44,7 +44,7 @@ Download from: https://www.python.org/downloads/
 Open a terminal in the project folder and run:
 
 ### 3. Run the System
-In the terminal, run:
+In the terminal, run: py run.py
 
 This will automatically:
 1. Generate the synthetic student dataset
